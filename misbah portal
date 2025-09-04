@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AL-MISBAH FRIENDS - Student Result Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gray: #95a5a6;
+            --white: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: 'Algerian', sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: var(--white);
+        }
+        
+        .header-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            color: var(--light);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .secondary-btn {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .secondary-btn:hover {
+            background: #bdc3c7;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #e8f4fd;
+            border-left: 5px solid var(--success);
+            color: #004085;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border-left: 5px solid var(--danger);
+            color: #721c24;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .user-info {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        .portal-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            color: var(--secondary);
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .result-table th, .result-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .result-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .result-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .result-table tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        .points-input {
+            width: 80px;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .admin-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .admin-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            width: auto;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .student-list, .program-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .student-item, .program-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .student-item:last-child, .program-item:last-child {
+            border-bottom: none;
+        }
+        
+        .total-points {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .program-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .club-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .club-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .club-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .club-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .club-card p {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            color: var(--secondary);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            transition: background 0.3s;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rank {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .rank-1 {
+            background: gold;
+            color: #333;
+        }
+        
+        .rank-2 {
+            background: silver;
+            color: #333;
+        }
+        
+        .rank-3 {
+            background: #cd7f32;
+            color: white;
+        }
+        
+        .program-winners {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .winner-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .winner-card h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .winner-card p {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .winner-1 {
+            border: 2px solid gold;
+            transform: scale(1.05);
+        }
+        
+        .winner-2 {
+            border: 2px solid silver;
+        }
+        
+        .winner-3 {
+            border: 2px solid #cd7f32;
+        }
+        
+        .program-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .program-details h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .program-details p {
+            margin-bottom: 5px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .club-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .logout-btn {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 15px;
+                width: 100%;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .program-winners {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginPage">
+        <header>
+            <div class="logo">AL-MISBAH FRIENDS</div>
+            <div class="header-subtitle">Student Result Portal</div>
+        </header>
+        
+        <div class="content">
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userType">Login As</label>
+                    <select id="userType">
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                
+                <button onclick="login()">Login</button>
+                
+                <div id="loginError" class="message error">
+                    Invalid username or password. Please try again.
+                </div>
+                
+                <div class="user-info">
+                    <p><strong>Demo Credentials:</strong></p>
+                    <p>Admin: ahad837 / syed</p>
+                    <p>Student: Use your name as username and password</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="adminPortal">
+        <header>
+            <div class="logo">AL-MISBAH FRIENDS</div>
+            <div class="header-subtitle">Admin Portal - Result Management</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+        
+        <div class="content">
+            <div class="user-info">
+                <h2>Welcome, Admin</h2>
+                <p>You can manage student results and programs from this portal</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('programTab')">Program Management</div>
+                <div class="tab" onclick="switchTab('pointsTab')">Assign Points</div>
+                <div class="tab" onclick="switchTab('studentsTab')">View Students</div>
+                <div class="tab" onclick="switchTab('dashboardTab')">Dashboard</div>
+            </div>
+            
+            <div id="programTab" class="tab-content">
+                <div class="portal-section">
+                    <h3 class="section-title">Program Management</h3>
+                    
+                    <div class="program-form">
+                        <div class="form-group">
+                            <label for="programName">Program Name</label>
+                            <input type="text" id="programName" placeholder="Enter program name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="programType">Program Type</label>
+                            <select id="programType">
+                                <option value="language">Language Club Program</option>
+                                <option value="srdb">SRDB Board Program</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="programClub">Organizing Club</label>
+                            <select id="programClub"></select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="programDate">Program Date</label>
+                            <input type="date" id="programDate">
+                        </div>
+                        
+                        <h4 class="category-title">Program Winners</h4>
+                        
+                        <div class="form-group">
+                            <label for="firstPlace">First Place Winner</label>
+                            <select id="firstPlace"></select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="secondPlace">Second Place Winner</label>
+                            <select id="secondPlace"></select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="thirdPlace">Third Place Winner</label>
+                            <select id="thirdPlace"></select>
+                        </div>
+                        
+                        <button onclick="addProgram()">Add Program</button>
+                        <div id="programMessage" class="message"></div>
+                    </div>
+                    
+                    <h4 class="category-title">Recent Programs</h4>
+                    <div class="program-list" id="programsList">
+                        <!-- Programs will be populated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div id="pointsTab" class="tab-content hidden">
+                <div class="portal-section">
+                    <h3 class="section-title">Assign Points to Students</h3>
+                    
+                    <div class="form-group">
+                        <label for="studentSelect">Select Student</label>
+                        <select id="studentSelect"></select>
+                    </div>
+                    
+                    <h4 class="category-title">Language Clubs</h4>
+                    <div class="form-group">
+                        <label for="englishPoints">English Club Points</label>
+                        <input type="number" id="englishPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="arabicPoints">Arabic Club Points</label>
+                        <input type="number" id="arabicPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urduPoints">Urdu Club Points</label>
+                        <input type="number" id="urduPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <h4 class="category-title">SRDB Board</h4>
+                    <div class="form-group">
+                        <label for="itPoints">IT Club Points</label>
+                        <input type="number" id="itPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="socialPoints">Social Workers Club Points</label>
+                        <input type="number" id="socialPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="scienceMathPoints">Science & Math Club Points</label>
+                        <input type="number" id="scienceMathPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="debatePoints">Debate Club Points</label>
+                        <input type="number" id="debatePoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sportsPoints">Sports Club Points</label>
+                        <input type="number" id="sportsPoints" class="points-input" min="0" value="0">
+                    </div>
+                    
+                    <button onclick="savePoints()">Save Points</button>
+                    <div id="saveMessage" class="message"></div>
+                </div>
+            </div>
+            
+            <div id="studentsTab" class="tab-content hidden">
+                <div class="portal-section">
+                    <h3 class="section-title">All Students</h3>
+                    <div class="student-list" id="allStudentsList">
+                        <!-- Student list will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="portal-section">
+                    <h3 class="section-title">Club Points Summary</h3>
+                    <div class="club-grid">
+                        <div class="club-card">
+                            <h3>English Club</h3>
+                            <p id="englishClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Arabic Club</h3>
+                            <p id="arabicClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Urdu Club</h3>
+                            <p id="urduClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>IT Club</h3>
+                            <p id="itClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Social Workers Club</h3>
+                            <p id="socialClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Science & Math Club</h3>
+                            <p id="scienceClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Debate Club</h3>
+                            <p id="debateClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                        <div class="club-card">
+                            <h3>Sports Club</h3>
+                            <p id="sportsClubTotal">0</p>
+                            <small>Total Points</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="dashboardTab" class="tab-content hidden">
+                <div class="dashboard">
+                    <div class="dashboard-card">
+                        <h3>Student Leaderboard</h3>
+                        <div id="leaderboard">
+                            <!-- Leaderboard will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Recent Program Winners</h3>
+                        <div id="recentWinners">
+                            <!-- Recent winners will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Program Statistics</h3>
+                    <div class="program-details">
+                        <h4>Total Programs Conducted: <span id="totalPrograms">0</span></h4>
+                        <p>Language Programs: <span id="languagePrograms">0</span></p>
+                        <p>SRDB Programs: <span id="srdbPrograms">0</span></p>
+                        <p>Most Active Club: <span id="mostActiveClub">None</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="studentPortal">
+        <header>
+            <div class="logo">AL-MISBAH FRIENDS</div>
+            <div class="header-subtitle">Student Result Portal</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+            <div class="notification-badge" id="notificationCount">3</div>
+        </header>
+        
+        <div class="content">
+            <div class="user-info">
+                <h2 id="studentWelcome">Welcome, Student</h2>
+                <p>View your results and achievements below</p>
+            </div>
+            
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <h3>Your Results</h3>
+                    
+                    <h4 class="category-title">Language Clubs</h4>
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Club</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="languageResults">
+                            <tr>
+                                <td>English Club</td>
+                                <td id="englishResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Arabic Club</td>
+                                <td id="arabicResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Urdu Club</td>
+                                <td id="urduResult">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4 class="category-title">SRDB Board</h4>
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Club</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="srdbResults">
+                            <tr>
+                                <td>IT Club</td>
+                                <td id="itResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Social Workers Club</td>
+                                <td id="socialResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Science & Math Club</td>
+                                <td id="scienceMathResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Debate Club</td>
+                                <td id="debateResult">0</td>
+                            </tr>
+                            <tr>
+                                <td>Sports Club</td>
+                                <td id="sportsResult">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="total-points">
+                        Total Points: <span id="totalPoints">0</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Your Achievements</h3>
+                    <div id="studentAchievements">
+                        <!-- Achievements will be populated here -->
+                    </div>
+                    
+                    <h4 class="category-title">Current Ranking</h4>
+                    <div id="studentRanking">
+                        <!-- Ranking will be populated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portal-section">
+                <h3 class="section-title">Recent Programs</h3>
+                <div class="program-list" id="studentProgramsList">
+                    <!-- Programs will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Student data
+        const students = [
+            "Ahsan Ansari", "Sahil Ali", "Abdul Alam", "Atif Shaikh", 
+            "Huzaifa Ansari", "Zeeshan Khan", "Md. Mustafa", "Md. Nematullah Raza", 
+            "Faizan Raza", "Kaish Raza", "Mokarram Faiz", "Mubashir Raza", 
+            "Yusuf Ali", "Zulqarnain", "Ansari Ahmed", "Junaid Ansari", 
+            "Shabaz Ansari", "Aman Arshad", "Arif Khan", "Meraj Khan", 
+            "Farhan Raza", "Esmatullah", "Tausif Raza", "Shamsuddin Hashmi", 
+            "Hashmat Raza", "Syed Abdul Ahad", "Hamza Shaikh", "Md. Anas Ansari", 
+            "Mohammed Ahad Abbasi", "Shoaib NPL", "Ahmed Raza"
+        ];
+
+        // Club definitions
+        const languageClubs = [
+            {id: "english", name: "English Club"},
+            {id: "arabic", name: "Arabic Club"},
+            {id: "urdu", name: "Urdu Club"}
+        ];
+
+        const srdbClubs = [
+            {id: "it", name: "IT Club"},
+            {id: "social", name: "Social Workers Club"},
+            {id: "scienceMath", name: "Science & Math Club"},
+            {id: "debate", name: "Debate Club"},
+            {id: "sports", name: "Sports Club"}
+        ];
+
+        const allClubs = [...languageClubs, ...srdbClubs];
+
+        // Initialize student results if not exists
+        function initializeStudentResults() {
+            if (!localStorage.getItem('studentResults')) {
+                const results = {};
+                
+                students.forEach(student => {
+                    results[student] = {
+                        // Language clubs
+                        english: 0,
+                        arabic: 0,
+                        urdu: 0,
+                        // SRDB clubs
+                        it: 0,
+                        social: 0,
+                        scienceMath: 0,
+                        debate: 0,
+                        sports: 0,
+                        // Achievements
+                        achievements: []
+                    };
+                });
+                
+                localStorage.setItem('studentResults', JSON.stringify(results));
+            }
+            
+            return JSON.parse(localStorage.getItem('studentResults'));
+        }
+
+        // Initialize programs if not exists
+        function initializePrograms() {
+            if (!localStorage.getItem('programs')) {
+                localStorage.setItem('programs', JSON.stringify([]));
+            }
+            return JSON.parse(localStorage.getItem('programs'));
+        }
+
+        let studentResults = initializeStudentResults();
+        let programs = initializePrograms();
+        let currentUser = null;
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const userType = document.getElementById('userType').value;
+            const errorBox = document.getElementById('loginError');
+
+            if (userType === 'admin') {
+                if (username === 'ahad837' && password === 'syed') {
+                    currentUser = { username, role: 'admin' };
+                    showAdminPortal();
+                } else if (username === 'suhail' && password === 'ahad123') {
+                    currentUser = { username, role: 'viewer' };
+                    showAdminPortal();
+                } else {
+                    showError(errorBox);
+                }
+            } else {
+                // Student login - username and password are the student's name
+                if (students.includes(username) && password === username) {
+                    currentUser = { username, role: 'student' };
+                    showStudentPortal();
+                } else {
+                    showError(errorBox);
+                }
+            }
+        }
+
+        function showError(errorBox) {
+            errorBox.style.display = 'block';
+            setTimeout(() => {
+                errorBox.style.display = 'none';
+            }, 3000);
+        }
+
+        function showAdminPortal() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('adminPortal').classList.remove('hidden');
+            
+            // Populate student dropdown
+            const studentSelect = document.getElementById('studentSelect');
+            studentSelect.innerHTML = '';
+            
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student;
+                option.textContent = student;
+                studentSelect.appendChild(option);
+            });
+            
+            // Populate club dropdown
+            const clubSelect = document.getElementById('programClub');
+            clubSelect.innerHTML = '';
+            
+            allClubs.forEach(club => {
+                const option = document.createElement('option');
+                option.value = club.id;
+                option.textContent = club.name;
+                clubSelect.appendChild(option);
+            });
+            
+            // Populate winner dropdowns
+            const firstPlace = document.getElementById('firstPlace');
+            const secondPlace = document.getElementById('secondPlace');
+            const thirdPlace = document.getElementById('thirdPlace');
+            
+            firstPlace.innerHTML = '<option value="">Select Winner</option>';
+            secondPlace.innerHTML = '<option value="">Select Winner</option>';
+            thirdPlace.innerHTML = '<option value="">Select Winner</option>';
+            
+            students.forEach(student => {
+                const option1 = document.createElement('option');
+                option1.value = student;
+                option1.textContent = student;
+                firstPlace.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = student;
+                option2.textContent = student;
+                secondPlace.appendChild(option2);
+                
+                const option3 = document.createElement('option');
+                option3.value = student;
+                option3.textContent = student;
+                thirdPlace.appendChild(option3);
+            });
+            
+            // Populate all students list
+            populateStudentsList();
+            
+            // Populate programs list
+            populateProgramsList();
+            
+            // Calculate club totals
+            calculateClubTotals();
+            
+            // Load first student's points
+            loadStudentPoints(students[0]);
+            
+            // Add event listener to student dropdown
+            studentSelect.addEventListener('change', function() {
+                loadStudentPoints(this.value);
+            });
+        }
+
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Update tab active state
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Find and activate the clicked tab
+            const tabs = document.querySelectorAll('.tab');
+            for (let i = 0; i < tabs.length; i++) {
+                if (tabs[i].textContent === 'Program Management' && tabId === 'programTab') {
+                    tabs[i].classList.add('active');
+                } else if (tabs[i].textContent === 'Assign Points' && tabId === 'pointsTab') {
+                    tabs[i].classList.add('active');
+                } else if (tabs[i].textContent === 'View Students' && tabId === 'studentsTab') {
+                    tabs[i].classList.add('active');
+                } else if (tabs[i].textContent === 'Dashboard' && tabId === 'dashboardTab') {
+                    tabs[i].classList.add('active');
+                    updateDashboard();
+                }
+            }
+            
+            // If switching to students tab, recalculate club totals
+            if (tabId === 'studentsTab') {
+                calculateClubTotals();
+            }
+        }
+
+        function populateStudentsList() {
+            const studentsList = document.getElementById('allStudentsList');
+            studentsList.innerHTML = '';
+            
+            students.forEach(student => {
+                const studentItem = document.createElement('div');
+                studentItem.className = 'student-item';
+                
+                const points = calculateTotalPoints(studentResults[student]);
+                
+                studentItem.innerHTML = `
+                    <div>${student}</div>
+                    <div><strong>${points}</strong> points</div>
+                `;
+                
+                studentsList.appendChild(studentItem);
+            });
+        }
+
+        function populateProgramsList() {
+            const programsList = document.getElementById('programsList');
+            programsList.innerHTML = '';
+            
+            if (programs.length === 0) {
+                programsList.innerHTML = '<div class="program-item">No programs added yet</div>';
+                return;
+            }
+            
+            // Show recent programs first
+            const recentPrograms = [...programs].reverse();
+            
+            recentPrograms.forEach(program => {
+                const programItem = document.createElement('div');
+                programItem.className = 'program-item';
+                
+                const formattedDate = new Date(program.date).toLocaleDateString();
+                const clubName = allClubs.find(c => c.id === program.club)?.name || program.club;
+                
+                programItem.innerHTML = `
+                    <div>
+                        <strong>${program.name}</strong><br>
+                        <small>${clubName} - ${formattedDate}</small>
+                    </div>
+                    <div>+5 points to club</div>
+                `;
+                
+                programsList.appendChild(programItem);
+            });
+        }
+
+        function calculateClubTotals() {
+            const clubTotals = {};
+            
+            // Initialize club totals
+            allClubs.forEach(club => {
+                clubTotals[club.id] = 0;
+            });
+            
+            // Calculate totals from all students
+            for (const student in studentResults) {
+                for (const club in studentResults[student]) {
+                    if (clubTotals.hasOwnProperty(club) && club !== 'achievements') {
+                        clubTotals[club] += studentResults[student][club];
+                    }
+                }
+            }
+            
+            // Update the UI with club totals
+            allClubs.forEach(club => {
+                const element = document.getElementById(`${club.id}ClubTotal`);
+                if (element) {
+                    element.textContent = clubTotals[club.id];
+                }
+            });
+        }
+
+        function loadStudentPoints(studentName) {
+            const results = studentResults[studentName];
+            
+            document.getElementById('englishPoints').value = results.english;
+            document.getElementById('arabicPoints').value = results.arabic;
+            document.getElementById('urduPoints').value = results.urdu;
+            document.getElementById('itPoints').value = results.it;
+            document.getElementById('socialPoints').value = results.social;
+            document.getElementById('scienceMathPoints').value = results.scienceMath;
+            document.getElementById('debatePoints').value = results.debate;
+            document.getElementById('sportsPoints').value = results.sports;
+        }
+
+        function addProgram() {
+            const programName = document.getElementById('programName').value.trim();
+            const programType = document.getElementById('programType').value;
+            const programClub = document.getElementById('programClub').value;
+            const programDate = document.getElementById('programDate').value;
+            const firstPlace = document.getElementById('firstPlace').value;
+            const secondPlace = document.getElementById('secondPlace').value;
+            const thirdPlace = document.getElementById('thirdPlace').value;
+            const messageDiv = document.getElementById('programMessage');
+            
+            if (!programName || !programDate || !firstPlace || !secondPlace || !thirdPlace) {
+                messageDiv.textContent = 'Please fill in all program details';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+                return;
+            }
+            
+            // Add new program
+            const newProgram = {
+                name: programName,
+                type: programType,
+                club: programClub,
+                date: programDate,
+                winners: {
+                    first: firstPlace,
+                    second: secondPlace,
+                    third: thirdPlace
+                },
+                timestamp: new Date().getTime()
+            };
+            
+            programs.push(newProgram);
+            localStorage.setItem('programs', JSON.stringify(programs));
+            
+            // Add points to winners
+            addPointsToStudent(firstPlace, programClub, 8);
+            addPointsToStudent(secondPlace, programClub, 5);
+            addPointsToStudent(thirdPlace, programClub, 3);
+            
+            // Add achievement to winners
+            addAchievement(firstPlace, `First place in ${programName}`, programDate);
+            addAchievement(secondPlace, `Second place in ${programName}`, programDate);
+            addAchievement(thirdPlace, `Third place in ${programName}`, programDate);
+            
+            const clubName = allClubs.find(c => c.id === programClub)?.name || programClub;
+            messageDiv.textContent = `Program "${programName}" added successfully. Points awarded to winners.`;
+            messageDiv.className = 'message success';
+            messageDiv.style.display = 'block';
+            
+            // Clear form
+            document.getElementById('programName').value = '';
+            document.getElementById('programDate').value = '';
+            document.getElementById('firstPlace').value = '';
+            document.getElementById('secondPlace').value = '';
+            document.getElementById('thirdPlace').value = '';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+            
+            // Update the programs list and students list
+            populateProgramsList();
+            populateStudentsList();
+            calculateClubTotals();
+        }
+
+        function addPointsToStudent(student, club, points) {
+            studentResults[student][club] += points;
+            localStorage.setItem('studentResults', JSON.stringify(studentResults));
+        }
+
+        function addAchievement(student, achievement, date) {
+            if (!studentResults[student].achievements) {
+                studentResults[student].achievements = [];
+            }
+            
+            studentResults[student].achievements.push({
+                text: achievement,
+                date: date
+            });
+            
+            localStorage.setItem('studentResults', JSON.stringify(studentResults));
+        }
+
+        function savePoints() {
+            const studentName = document.getElementById('studentSelect').value;
+            const messageDiv = document.getElementById('saveMessage');
+            
+            studentResults[studentName] = {
+                english: parseInt(document.getElementById('englishPoints').value) || 0,
+                arabic: parseInt(document.getElementById('arabicPoints').value) || 0,
+                urdu: parseInt(document.getElementById('urduPoints').value) || 0,
+                it: parseInt(document.getElementById('itPoints').value) || 0,
+                social: parseInt(document.getElementById('socialPoints').value) || 0,
+                scienceMath: parseInt(document.getElementById('scienceMathPoints').value) || 0,
+                debate: parseInt(document.getElementById('debatePoints').value) || 0,
+                sports: parseInt(document.getElementById('sportsPoints').value) || 0,
+                achievements: studentResults[studentName].achievements || []
+            };
+            
+            localStorage.setItem('studentResults', JSON.stringify(studentResults));
+            
+            messageDiv.textContent = `Points saved for ${studentName}`;
+            messageDiv.className = 'message success';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+            
+            // Update the students list and club totals
+            populateStudentsList();
+            calculateClubTotals();
+        }
+
+        function updateDashboard() {
+            // Update leaderboard
+            const leaderboard = document.getElementById('leaderboard');
+            leaderboard.innerHTML = '';
+            
+            // Create sorted list of students by total points
+            const rankedStudents = [...students].sort((a, b) => {
+                return calculateTotalPoints(studentResults[b]) - calculateTotalPoints(studentResults[a]);
+            });
+            
+            // Display top 10 students
+            rankedStudents.slice(0, 10).forEach((student, index) => {
+                const points = calculateTotalPoints(studentResults[student]);
+                const leaderboardItem = document.createElement('div');
+                leaderboardItem.className = 'leaderboard-item';
+                
+                leaderboardItem.innerHTML = `
+                    <div>
+                        <span class="rank ${index < 3 ? 'rank-' + (index + 1) : ''}">${index + 1}</span>
+                        ${student}
+                    </div>
+                    <div>${points} points</div>
+                `;
+                
+                leaderboard.appendChild(leaderboardItem);
+            });
+            
+            // Update recent winners
+            const recentWinners = document.getElementById('recentWinners');
+            recentWinners.innerHTML = '';
+            
+            if (programs.length > 0) {
+                const recentProgram = programs[programs.length - 1];
+                const programWinners = document.createElement('div');
+                programWinners.className = 'program-winners';
+                
+                programWinners.innerHTML = `
+                    <div class="winner-card winner-1">
+                        <h4>First Place</h4>
+                        <p>${recentProgram.winners.first}</p>
+                        <small>8 points</small>
+                    </div>
+                    <div class="winner-card winner-2">
+                        <h4>Second Place</h4>
+                        <p>${recentProgram.winners.second}</p>
+                        <small>5 points</small>
+                    </div>
+                    <div class="winner-card winner-3">
+                        <h4>Third Place</h4>
+                        <p>${recentProgram.winners.third}</p>
+                        <small>3 points</small>
+                    </div>
+                `;
+                
+                recentWinners.appendChild(programWinners);
+                
+                const programDetails = document.createElement('div');
+                programDetails.className = 'program-details';
+                
+                const formattedDate = new Date(recentProgram.date).toLocaleDateString();
+                const clubName = allClubs.find(c => c.id === recentProgram.club)?.name || recentProgram.club;
+                
+                programDetails.innerHTML = `
+                    <h4>${recentProgram.name}</h4>
+                    <p>Date: ${formattedDate}</p>
+                    <p>Club: ${clubName}</p>
+                `;
+                
+                recentWinners.appendChild(programDetails);
+            } else {
+                recentWinners.innerHTML = '<p>No programs yet</p>';
+            }
+            
+            // Update program statistics
+            document.getElementById('totalPrograms').textContent = programs.length;
+            
+            const languagePrograms = programs.filter(p => p.type === 'language').length;
+            const srdbPrograms = programs.filter(p => p.type === 'srdb').length;
+            
+            document.getElementById('languagePrograms').textContent = languagePrograms;
+            document.getElementById('srdbPrograms').textContent = srdbPrograms;
+            
+            // Find most active club
+            const clubActivities = {};
+            allClubs.forEach(club => {
+                clubActivities[club.id] = programs.filter(p => p.club === club.id).length;
+            });
+            
+            let mostActiveClub = 'None';
+            let maxActivities = 0;
+            
+            for (const club in clubActivities) {
+                if (clubActivities[club] > maxActivities) {
+                    maxActivities = clubActivities[club];
+                    mostActiveClub = allClubs.find(c => c.id === club)?.name || club;
+                }
+            }
+            
+            document.getElementById('mostActiveClub').textContent = mostActiveClub;
+        }
+
+        function showStudentPortal() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('studentPortal').classList.remove('hidden');
+            
+            document.getElementById('studentWelcome').textContent = `Welcome, ${currentUser.username}`;
+            
+            const results = studentResults[currentUser.username];
+            
+            document.getElementById('englishResult').textContent = results.english;
+            document.getElementById('arabicResult').textContent = results.arabic;
+            document.getElementById('urduResult').textContent = results.urdu;
+            document.getElementById('itResult').textContent = results.it;
+            document.getElementById('socialResult').textContent = results.social;
+            document.getElementById('scienceMathResult').textContent = results.scienceMath;
+            document.getElementById('debateResult').textContent = results.debate;
+            document.getElementById('sportsResult').textContent = results.sports;
+            
+            const totalPoints = calculateTotalPoints(results);
+            document.getElementById('totalPoints').textContent = totalPoints;
+            
+            // Display achievements
+            const achievementsDiv = document.getElementById('studentAchievements');
+            achievementsDiv.innerHTML = '';
+            
+            if (results.achievements && results.achievements.length > 0) {
+                results.achievements.forEach(achievement => {
+                    const achievementItem = document.createElement('div');
+                    achievementItem.className = 'leaderboard-item';
+                    achievementItem.innerHTML = `
+                        <div>${achievement.text}</div>
+                        <div>${achievement.date}</div>
+                    `;
+                    achievementsDiv.appendChild(achievementItem);
+                });
+            } else {
+                achievementsDiv.innerHTML = '<p>No achievements yet</p>';
+            }
+            
+            // Display ranking
+            const rankingDiv = document.getElementById('studentRanking');
+            rankingDiv.innerHTML = '';
+            
+            // Create sorted list of students by total points
+            const rankedStudents = [...students].sort((a, b) => {
+                return calculateTotalPoints(studentResults[b]) - calculateTotalPoints(studentResults[a]);
+            });
+            
+            const rank = rankedStudents.indexOf(currentUser.username) + 1;
+            const totalStudents = rankedStudents.length;
+            
+            rankingDiv.innerHTML = `
+                <div class="leaderboard-item">
+                    <div>Your Rank</div>
+                    <div>${rank} of ${totalStudents}</div>
+                </div>
+                <div class="leaderboard-item">
+                    <div>Top Performer</div>
+                    <div>${rankedStudents[0]} (${calculateTotalPoints(studentResults[rankedStudents[0]])} points)</div>
+                </div>
+            `;
+            
+            // Populate programs list for student view
+            const programsList = document.getElementById('studentProgramsList');
+            programsList.innerHTML = '';
+            
+            if (programs.length === 0) {
+                programsList.innerHTML = '<div class="program-item">No programs added yet</div>';
+                return;
+            }
+            
+            // Show recent programs first
+            const recentPrograms = [...programs].reverse().slice(0, 5); // Show only 5 most recent
+            
+            recentPrograms.forEach(program => {
+                const programItem = document.createElement('div');
+                programItem.className = 'program-item';
+                
+                const formattedDate = new Date(program.date).toLocaleDateString();
+                const clubName = allClubs.find(c => c.id === program.club)?.name || program.club;
+                
+                programItem.innerHTML = `
+                    <div>
+                        <strong>${program.name}</strong><br>
+                        <small>${clubName} - ${formattedDate}</small>
+                    </div>
+                `;
+                
+                programsList.appendChild(programItem);
+            });
+        }
+
+        function calculateTotalPoints(results) {
+            let total = 0;
+            for (const club in results) {
+                if (club !== 'achievements') {
+                    total += results[club];
+                }
+            }
+            return total;
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('adminPortal').classList.add('hidden');
+            document.getElementById('studentPortal').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            // Clear login form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            // Focus on username field
+            document.getElementById('username').focus();
+            
+            // Set today's date as default for program date
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('programDate').value = `${yyyy}-${mm}-${dd}`;
+        };
+    </script>
+</body>
+</html>
